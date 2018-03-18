@@ -1,0 +1,26 @@
+#v1 .country[fill="grey"] {
+  cursor: crosshair;
+}
+
+.tooltip {
+  position: absolute;
+  padding: 5px 3px;
+  opacity: 0.75;
+  border-radius: 5px;
+  overflow-x: visible;
+  overflow-y: visible;
+  color: white;
+  background-color: black;
+  display: none;
+}
+
+#v2 path[class] {
+  cursor: pointer;
+}
+#v2 text[x="200"] {
+  font-size: 14px;
+}
+#v2 text {
+  font-weight: lighter;
+  font-family: Verdana, Geneva, sans-serif;
+}
