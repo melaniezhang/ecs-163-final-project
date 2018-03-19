@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ECS163 Final Project</title>
+    <link href="css/style.css" type="text/css" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <h1>Kickstarter Projects Analysis</h1>
+    </header>
+
+    <!-- world map -->
+    <div id="v1" class="vis"></div>
+
+    <!-- radar -->
+    <div id="v2" class="vis"></div>
+
+    <!-- sankey -->
+    <div id="v3" class="vis">
+      <!-- <select id="categories"></select>
+      <br> -->
+      <svg width="600" height="400"></svg>  <!-- changed from (900, 600) to (600, 400) -->
+    </div>
+
+    <div id="v4" class="vis" style="visibility: hidden;">
+      <br>
+    </div>
+
+    <!-- scripts -->
+    <script src="./scripts/d3.v4.min.js"></script>
+    <script src="./scripts/topojson.min.js"></script>
+    <script type="text/javascript" src="./scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="./scripts/sankey.js"></script>
+    <script type="text/javascript" src="./scripts/sankey_main.js"></script>
+    <script src="./scripts/sunburstData.js"></script>
+    <script src="./scripts/sunburst.js"></script>
+    <script src="./scripts/v1.js"></script>
+    <script src="./scripts/main.js"></script>
+  </body>
+</html>
