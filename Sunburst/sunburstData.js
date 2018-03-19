@@ -1,3 +1,101 @@
+// Comics:[9878, [3129, 0], [619, 0], [236, 0], [102, 50], [4080, 4080], [1712, 1712]]
+var comics = {
+    "name": "Comics", Comics:[9878, [3129, 0], [619, 0], [236, 0], [102, 50], [4080, 4080], [1712, 1712]]
+    "children": [
+        {
+            "name": "0-25",
+            "children": [
+                {"name": "successes", "size": 0},
+                {"name": "failures", "size": 3129}
+            ]
+        },
+        {
+            "name": "26-50",
+            "children": [
+                {"name": "successes", "size": 0},
+                {"name": "failures", "size": 619}
+            ]
+        },
+        {
+            "name": "51-75",
+            "children": [
+                {"name": "successes", "size": 0},
+                {"name": "failures", "size": 236}
+            ]
+        },
+        {
+            "name": "76-100",
+            "children": [
+                {"name": "successes", "size": 50},
+                {"name": "failures", "size": 52}
+            ]
+        },
+        {
+            "name": "101-200",
+            "children": [
+                {"name": "successes", "size": 4080},
+                {"name": "failures", "size": 0}
+            ]
+        },
+        {
+            "name": "200+",
+            "children": [
+                {"name": "successes", "size": 1712},
+                {"name": "failures", "size": 1712}
+            ]
+        }
+    ]
+};
+
+var theater = {
+    "name": "Theater",  Theater:[10242, [3142, 0], [426, 0], [112, 0], [411, 383], [5901, 5901], [250, 250]]
+    "children": [
+        {
+            "name": "0-25",
+            "children": [
+                {"name": "successes", "size": 0},
+                {"name": "failures", "size": 3142}
+            ]
+        },
+        {
+            "name": "26-50",
+            "children": [
+                {"name": "successes", "size": 0},
+                {"name": "failures", "size": 4}
+            ]
+        },
+        {
+            "name": "51-75",
+            "children": [
+                {"name": "successes", "size": 0},
+                {"name": "failures", "size": 112}
+            ]
+        },
+        {
+            "name": "76-100",
+            "children": [
+                {"name": "successes", "size": 383},
+                {"name": "failures", "size": 28}
+            ]
+        },
+        {
+            "name": "101-200",
+            "children": [
+                {"name": "successes", "size": 5901},
+                {"name": "failures", "size": 0}
+            ]
+        },
+        {
+            "name": "200+",
+            "children": [
+                {"name": "successes", "size": 250},
+                {"name": "failures", "size": 0}
+            ]
+        }
+    ]
+};
+
+
 // Crafts:[7818, [5101, 0], [437, 0], [144, 0], [84, 63], [1346, 1346], [706, 706]]
 var crafts = {
     "name": "Crafts",
