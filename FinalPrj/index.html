@@ -8,26 +8,32 @@
   <body>
     <header>
       <h1>Kickstarter Projects Analysis</h1>
+    </br>
     </header>
 
     <!-- world map -->
-    <div id="v1" class="vis"></div>
+    <div id="v1" class="vis">
+      <h3>Countries With Kickstarters</h3>
+      <p>Choose a country to see the categories of Kickstarters within that country.</p>
+    </div>
 
     <!-- radar -->
     <div id="v2" class="vis" style="visibility: hidden;">
+      <h3>Category Proportions Per Country</h3>
       <div id = "dropdown"></div>
       <h4 style="position: relative; top: 55px; left: 300px;">Category</h4>
     </div>
 
     <!-- sankey -->
     <div id="v3" class="vis" style="visibility: hidden;">
-      <h4>Most Successful Subcategories</h4>
+      <h3>Most Successful Subcategories (For Chosen Category)</h3>
       <svg width="550" height="400"></svg>
     </div>
 
     <!-- sunburst -->
     <div id="v4" class="vis" style="visibility: hidden;">
-      <h4>Percent of Goal Reached</h4>
+      <h4>Successes/Failures for Kickstarters That Reached Different Monetary Goals (For Chosen Category)</h4>
+      <p>The percentage is the amount of the monetary goal the Kickstarters reached. These are broken down in the outer ring to show successes and failures within each sector. The darker gray outer sectors show the proportion of Kickstarters within the inner sector that succeded. The lighter gray shows the proportion of those that failed.<p>
     </div>
 
     <!-- scripts -->

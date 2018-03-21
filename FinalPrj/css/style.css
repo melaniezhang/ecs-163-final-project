@@ -3,19 +3,27 @@ body {
   margin: 0 0;
   display: grid;
   position: relative;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  font-family: sans-serif;
+  color: #003366;
 }
 header {
   width: 100%;
-  border-bottom: 1px solid red;
+  /*border-bottom: 1px solid red;*/
   position: absolute;
   z-index: 100;
+  padding-top: 20px;
+  padding-left: 20px;
 }
 header h1 {
-  margin: 0 10px;
+  /*margin: 0 10px;*/
 }
 h4 {
-  color: black;
-  margin: 0 0 6px 20px;
+  /*color: black;*/
+  /*margin: 0 0 6px 20px;*/
 }
 
 /* grid */
@@ -81,44 +89,13 @@ h4 {
  * ECS163 Final Project
  */
 
-body {
-    /*background-color: #00003c;*/
-    /* background-color: lightgray; */
-    font-family: sans-serif;
-    color: lightblue;
-    /* padding-left: 50px;
-    padding-right: 50px;
-    padding-top: 50px; */
-    /*background: linear-gradient(#00003c 25%,#000066);*/
-    /*background: linear-gradient(#00003c 15%,lightblue);*/
-    /*background: linear-gradient(dimgray 15%,lightgray);*/
-    /*background: linear-gradient(rgba(0,0,60,1), rgba(0,0,60,0)); */
 
-    background-attachment: fixed;
-    /*
-    background: repeating-linear-gradient(
-            180deg,
-            #00004d,
-            #00004d 10px,
-            #00003c 10px,
-            #00003c 20px
-    );
-    */
-
-}
 
 #v4 svg {
     background-color: none;
 }
 
-#v4 svg2 {
-    background-color: blue;
-}
-
 #v4 path {
-    stroke: lightgray;
+    stroke: white;
 }
 
-#v4 #hoverText {
-
-}
