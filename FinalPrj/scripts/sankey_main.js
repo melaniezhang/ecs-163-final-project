@@ -26,19 +26,21 @@ var country_graphs = {};
 // read in data
 d3.csv('data/ks-projects-201801.csv', function(error, data){
 	data.forEach(function(d) {
-		if (!(d.country in country_categories)) {
-			country_categories[d.country] = {};
-		}
-		if (!(d.main_category in country_categories[d.country])) {
-			country_categories[d.country][d.main_category] = {};
-			country_categories[d.country][d.main_category][d.category] = 1;
-		}
-		else {
-			if (d.category in country_categories[d.country][d.main_category]) {
-				country_categories[d.country][d.main_category][d.category]++;
+		if (d.state == "successful") {
+			if (!(d.country in country_categories)) {
+				country_categories[d.country] = {};
+			}
+			if (!(d.main_category in country_categories[d.country])) {
+				country_categories[d.country][d.main_category] = {};
+				country_categories[d.country][d.main_category][d.category] = 1;
 			}
 			else {
-				country_categories[d.country][d.main_category][d.category] = 1;
+				if (d.category in country_categories[d.country][d.main_category]) {
+					country_categories[d.country][d.main_category][d.category]++;
+				}
+				else {
+					country_categories[d.country][d.main_category][d.category] = 1;
+				}
 			}
 		}
 	});
