@@ -121,12 +121,6 @@ function v1(mydata, container1){
 				})
 
 			});
-
-			// add instructions
-			var newP = document.createElement("p");
-			var newNode = document.createTextNode("Choose any country in dark gray");
-			newP.appendChild(newNode);
-			document.getElementById("v1").appendChild(newP);
 	}
 }
 
