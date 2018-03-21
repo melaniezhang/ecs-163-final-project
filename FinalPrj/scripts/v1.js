@@ -45,6 +45,18 @@ function v1(mydata, container1){
 			.domain(mainCategories)
 			.range(d3.schemeCategory20);
 
+	var menu = d3.select("#dropdown")
+				 .append("select")
+				 .attr("class", "options");
+
+	menu.append("option")
+		.attr("value", "a")
+		.text("All Projects");
+
+	menu.append("option")
+		.attr("value", "p")
+		.text("Percentage of SUccessful Projects");
+
 	function ready(error, data){
 		var countries = topojson.feature(data, data.objects.countries1).features;
 		svg1.selectAll(".country")
@@ -79,37 +91,8 @@ function v1(mydata, container1){
 				d3.select("#tooltip1")
 					.style('display', 'none');})
 			.on("click", function(d){
-				var cate = {};
-				var categories = [];
-				var names = [];
-				var colors = colorScale;	//changed
 
-				mydata.forEach(function(dataum){
-					if(dataum.country === d.properties["Alpha-2"]){
-						if(cate[dataum["main_category"]] === undefined){
-							cate[dataum["main_category"]] = 0;
-						}
-					}
-				})
-
-				mydata.forEach(function(dataum){
-					if(dataum.country === d.properties["Alpha-2"]){
-						cate[dataum["main_category"]]++;
-					}
-				})
-
-				Object.keys(cate).forEach(function(key){
-					categories.push(cate[key]);
-					names.push(key);
-				})
-
-				var scale = d3.scaleLinear()
-							  .domain([d3.min(categories), d3.max(categories)])
-							  .range([1,10]);
-
-				for(i = 0; i <categories.length; i++){
-					categories[i] = scale(categories[i]);
-				}
+				var menu = d3.select(".options");
 
 				//change visibility to "hidden" when another country is clicked
 				if (document.getElementById("v4").style.visibility === "visible") {
@@ -117,7 +100,186 @@ function v1(mydata, container1){
 					document.getElementById("v4").style.visibility = "hidden";
 				}
 
-				drawDo(d3.select("#v2"), 10, 15, categories, names, colors, d.properties["Alpha-2"]);	//added ", d.properties.name"
+				//draw in the begining
+				if(d3.select(".options").property("value") === "a"){
+					var cate = {};
+					var categories = [];
+					var names = [];
+
+					mydata.forEach(function(dataum){
+						if(dataum.country === d.properties["Alpha-2"]){
+							if(cate[dataum["main_category"]] === undefined){
+								cate[dataum["main_category"]] = 0;
+							}
+						}
+					})
+
+					mydata.forEach(function(dataum){
+						if(dataum.country === d.properties["Alpha-2"]){
+							cate[dataum["main_category"]]++;
+						}
+					})
+
+					Object.keys(cate).forEach(function(key){
+						categories.push(cate[key]);
+						names.push(key);
+					})
+
+					var scale = d3.scaleLinear()
+								  .domain([d3.min(categories), d3.max(categories)])
+								  .range([1,10]);
+
+					for(i = 0; i <categories.length; i++){
+						categories[i] = scale(categories[i]);
+					}
+						drawDo(d3.select("#v2"), 10, 15, categories, names, colorScale, d.properties["Alpha-2"]);
+					}
+				else{
+					var cate = {};
+					var suc = {}
+					var categories = [];
+					var successful = [];
+					var names = [];
+
+					mydata.forEach(function(dataum){
+						if(dataum.country === d.properties["Alpha-2"]){
+							if(cate[dataum["main_category"]] === undefined){
+								cate[dataum["main_category"]] = 0;
+							}
+						}
+					})
+
+					mydata.forEach(function(dataum){
+						if(dataum.country === d.properties["Alpha-2"]){
+							cate[dataum["main_category"]]++;
+						}
+					})
+
+					mydata.forEach(function(dataum){
+						if(dataum.country === d.properties["Alpha-2"]){
+							if(suc[dataum["main_category"]] === undefined){
+								suc[dataum["main_category"]] = 0;
+							}
+						}
+					})
+
+					mydata.forEach(function(dataum){
+						if(dataum.country === d.properties["Alpha-2"] && dataum.state === "successful"){
+							suc[dataum["main_category"]]++;
+						}
+					})
+
+					Object.keys(cate).forEach(function(key){
+						categories.push(cate[key]);
+						successful.push(suc[key]);
+						names.push(key);
+					})
+
+					for(i = 0; i < successful.length; i++){
+						categories[i] = successful[i]/categories[i];
+					}
+
+					var scale = d3.scaleLinear()
+								  .domain([d3.min(categories), d3.max(categories)])
+								  .range([1,10]);
+
+					for(i = 0; i <categories.length; i++){
+						categories[i] = scale(categories[i]);
+					}
+					drawDo(d3.select("#v2"), 10, 15, categories, names, colorScale, d.properties["Alpha-2"]);
+				}
+
+				//update when selected
+				menu.on("change", function(){
+					if(d3.select(".options").property("value") === "a"){
+					var cate = {};
+					var categories = [];
+					var names = [];
+
+					mydata.forEach(function(dataum){
+						if(dataum.country === d.properties["Alpha-2"]){
+							if(cate[dataum["main_category"]] === undefined){
+								cate[dataum["main_category"]] = 0;
+							}
+						}
+					})
+
+					mydata.forEach(function(dataum){
+						if(dataum.country === d.properties["Alpha-2"]){
+							cate[dataum["main_category"]]++;
+						}
+					})
+
+					Object.keys(cate).forEach(function(key){
+						categories.push(cate[key]);
+						names.push(key);
+					})
+
+					var scale = d3.scaleLinear()
+								  .domain([d3.min(categories), d3.max(categories)])
+								  .range([1,10]);
+
+					for(i = 0; i <categories.length; i++){
+						categories[i] = scale(categories[i]);
+					}
+						drawDo(d3.select("#v2"), 10, 15, categories, names, colorScale, d.properties["Alpha-2"]);
+					}
+				else{
+					var cate = {};
+					var suc = {}
+					var categories = [];
+					var successful = [];
+					var names = [];
+
+					mydata.forEach(function(dataum){
+						if(dataum.country === d.properties["Alpha-2"]){
+							if(cate[dataum["main_category"]] === undefined){
+								cate[dataum["main_category"]] = 0;
+							}
+						}
+					})
+
+					mydata.forEach(function(dataum){
+						if(dataum.country === d.properties["Alpha-2"]){
+							cate[dataum["main_category"]]++;
+						}
+					})
+
+					mydata.forEach(function(dataum){
+						if(dataum.country === d.properties["Alpha-2"]){
+							if(suc[dataum["main_category"]] === undefined){
+								suc[dataum["main_category"]] = 0;
+							}
+						}
+					})
+
+					mydata.forEach(function(dataum){
+						if(dataum.country === d.properties["Alpha-2"] && dataum.state === "successful"){
+							suc[dataum["main_category"]]++;
+						}
+					})
+
+					Object.keys(cate).forEach(function(key){
+						categories.push(cate[key]);
+						successful.push(suc[key]);
+						names.push(key);
+					})
+
+					for(i = 0; i < successful.length; i++){
+						categories[i] = successful[i]/categories[i];
+					}
+
+					var scale = d3.scaleLinear()
+								  .domain([d3.min(categories), d3.max(categories)])
+								  .range([1,10]);
+
+					for(i = 0; i <categories.length; i++){
+						categories[i] = scale(categories[i]);
+					}
+					drawDo(d3.select("#v2"), 10, 15, categories, names, colorScale, d.properties["Alpha-2"]);
+				}
+					
+				})
 			});
 	}
 }
@@ -187,11 +349,11 @@ function drawDo(container, n, m, list, names, colors, country){	//added ", count
 					// sankey shows up
 					updateGraph(this.className.baseVal, colors(this.className.baseVal), country);
 					// sunburst shows up
-					v4(this.className.baseVal.toLowerCase().replace(/ /gi, "_").replace(/&/gi, "and"), colors(this.className.baseVal), country);
+					v4(this.className.baseVal.toLowerCase().replace(/ /gi, "_").replace(/&/gi, "and"), colors(this.className.baseVal));
 					//change visibility to "visible" if <div> were "hidden"
 				  if (document.getElementById("v4").style.visibility === "hidden") {
 						document.getElementById("v3").style.visibility = "visible";
-				    document.getElementById("v4").style.visibility = "visible";
+				   	    document.getElementById("v4").style.visibility = "visible";
 					}
 				}
 			});
