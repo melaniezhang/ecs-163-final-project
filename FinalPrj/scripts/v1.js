@@ -1,12 +1,15 @@
 function v1(mydata, container1){
+	//create svg 
 	var svg1 = container1.append("svg")
 					   .attr("width", 700)
 					   .attr("height", 400);
 
+	//load topo json file for world map
 	d3.queue()
 	  .defer(d3.json, "data/world-countries.json")
 	  .await(ready);
 
+	//create a projection for the map
 	var pj = d3.geoMercator()
 			   .scale(97);
 
@@ -45,6 +48,7 @@ function v1(mydata, container1){
 			.domain(mainCategories)
 			.range(d3.schemeCategory20);
 
+	//create dropdown manu
 	var menu = d3.select("#dropdown")
 				 .append("select")
 				 .attr("class", "options");
@@ -57,6 +61,7 @@ function v1(mydata, container1){
 		.attr("value", "p")
 		.text("Percentage of SUccessful Projects");
 
+	//drawing world map
 	function ready(error, data){
 		var countries = topojson.feature(data, data.objects.countries1).features;
 		svg1.selectAll(".country")
@@ -100,190 +105,19 @@ function v1(mydata, container1){
 					document.getElementById("v4").style.visibility = "hidden";
 				}
 
-				//draw in the begining
-				if(d3.select(".options").property("value") === "a"){
-					var cate = {};
-					var categories = [];
-					var names = [];
+				//draw a radar based on selected country at the beginning
+				update(d, mydata, colorScale, d3.select("#v2"));
 
-					mydata.forEach(function(dataum){
-						if(dataum.country === d.properties["Alpha-2"]){
-							if(cate[dataum["main_category"]] === undefined){
-								cate[dataum["main_category"]] = 0;
-							}
-						}
-					})
-
-					mydata.forEach(function(dataum){
-						if(dataum.country === d.properties["Alpha-2"]){
-							cate[dataum["main_category"]]++;
-						}
-					})
-
-					Object.keys(cate).forEach(function(key){
-						categories.push(cate[key]);
-						names.push(key);
-					})
-
-					var scale = d3.scaleLinear()
-								  .domain([d3.min(categories), d3.max(categories)])
-								  .range([1,10]);
-
-					for(i = 0; i <categories.length; i++){
-						categories[i] = scale(categories[i]);
-					}
-						drawDo(d3.select("#v2"), 10, 15, categories, names, colorScale, d.properties["Alpha-2"]);
-					}
-				else{
-					var cate = {};
-					var suc = {}
-					var categories = [];
-					var successful = [];
-					var names = [];
-
-					mydata.forEach(function(dataum){
-						if(dataum.country === d.properties["Alpha-2"]){
-							if(cate[dataum["main_category"]] === undefined){
-								cate[dataum["main_category"]] = 0;
-							}
-						}
-					})
-
-					mydata.forEach(function(dataum){
-						if(dataum.country === d.properties["Alpha-2"]){
-							cate[dataum["main_category"]]++;
-						}
-					})
-
-					mydata.forEach(function(dataum){
-						if(dataum.country === d.properties["Alpha-2"]){
-							if(suc[dataum["main_category"]] === undefined){
-								suc[dataum["main_category"]] = 0;
-							}
-						}
-					})
-
-					mydata.forEach(function(dataum){
-						if(dataum.country === d.properties["Alpha-2"] && dataum.state === "successful"){
-							suc[dataum["main_category"]]++;
-						}
-					})
-
-					Object.keys(cate).forEach(function(key){
-						categories.push(cate[key]);
-						successful.push(suc[key]);
-						names.push(key);
-					})
-
-					for(i = 0; i < successful.length; i++){
-						categories[i] = successful[i]/categories[i];
-					}
-
-					var scale = d3.scaleLinear()
-								  .domain([d3.min(categories), d3.max(categories)])
-								  .range([1,10]);
-
-					for(i = 0; i <categories.length; i++){
-						categories[i] = scale(categories[i]);
-					}
-					drawDo(d3.select("#v2"), 10, 15, categories, names, colorScale, d.properties["Alpha-2"]);
-				}
-
-				//update when selected
+				//update the radar chart based on dropdown selection
 				menu.on("change", function(){
-					if(d3.select(".options").property("value") === "a"){
-					var cate = {};
-					var categories = [];
-					var names = [];
-
-					mydata.forEach(function(dataum){
-						if(dataum.country === d.properties["Alpha-2"]){
-							if(cate[dataum["main_category"]] === undefined){
-								cate[dataum["main_category"]] = 0;
-							}
-						}
-					})
-
-					mydata.forEach(function(dataum){
-						if(dataum.country === d.properties["Alpha-2"]){
-							cate[dataum["main_category"]]++;
-						}
-					})
-
-					Object.keys(cate).forEach(function(key){
-						categories.push(cate[key]);
-						names.push(key);
-					})
-
-					var scale = d3.scaleLinear()
-								  .domain([d3.min(categories), d3.max(categories)])
-								  .range([1,10]);
-
-					for(i = 0; i <categories.length; i++){
-						categories[i] = scale(categories[i]);
-					}
-						drawDo(d3.select("#v2"), 10, 15, categories, names, colorScale, d.properties["Alpha-2"]);
-					}
-				else{
-					var cate = {};
-					var suc = {}
-					var categories = [];
-					var successful = [];
-					var names = [];
-
-					mydata.forEach(function(dataum){
-						if(dataum.country === d.properties["Alpha-2"]){
-							if(cate[dataum["main_category"]] === undefined){
-								cate[dataum["main_category"]] = 0;
-							}
-						}
-					})
-
-					mydata.forEach(function(dataum){
-						if(dataum.country === d.properties["Alpha-2"]){
-							cate[dataum["main_category"]]++;
-						}
-					})
-
-					mydata.forEach(function(dataum){
-						if(dataum.country === d.properties["Alpha-2"]){
-							if(suc[dataum["main_category"]] === undefined){
-								suc[dataum["main_category"]] = 0;
-							}
-						}
-					})
-
-					mydata.forEach(function(dataum){
-						if(dataum.country === d.properties["Alpha-2"] && dataum.state === "successful"){
-							suc[dataum["main_category"]]++;
-						}
-					})
-
-					Object.keys(cate).forEach(function(key){
-						categories.push(cate[key]);
-						successful.push(suc[key]);
-						names.push(key);
-					})
-
-					for(i = 0; i < successful.length; i++){
-						categories[i] = successful[i]/categories[i];
-					}
-
-					var scale = d3.scaleLinear()
-								  .domain([d3.min(categories), d3.max(categories)])
-								  .range([1,10]);
-
-					for(i = 0; i <categories.length; i++){
-						categories[i] = scale(categories[i]);
-					}
-					drawDo(d3.select("#v2"), 10, 15, categories, names, colorScale, d.properties["Alpha-2"]);
-				}
-					
+					update(d, mydata, colorScale, d3.select("#v2"));
 				})
+
 			});
 	}
 }
 
+//function to draw radar chart(drawing stacking donut)
 function drawDo(container, n, m, list, names, colors, country){	//added ", country"
 	container.selectAll("svg").remove();
 	var svg = container.append('svg')
@@ -395,6 +229,97 @@ function drawDo(container, n, m, list, names, colors, country){	//added ", count
 		.attr("y", 20)
 		.attr("font-size", "18px")
 		.attr("font-style", "italic");
+}
+
+//update function for radar chart after filted by dropdowm manue
+function update(d, mydata, colorScale, container){
+				if(d3.select(".options").property("value") === "a"){
+					var cate = {};
+					var categories = [];
+					var names = [];
+
+					mydata.forEach(function(dataum){
+						if(dataum.country === d.properties["Alpha-2"]){
+							if(cate[dataum["main_category"]] === undefined){
+								cate[dataum["main_category"]] = 0;
+							}
+						}
+					})
+
+					mydata.forEach(function(dataum){
+						if(dataum.country === d.properties["Alpha-2"]){
+							cate[dataum["main_category"]]++;
+						}
+					})
+
+					Object.keys(cate).forEach(function(key){
+						categories.push(cate[key]);
+						names.push(key);
+					})
+
+					var scale = d3.scaleLinear()
+								  .domain([d3.min(categories), d3.max(categories)])
+								  .range([1,10]);
+
+					for(i = 0; i <categories.length; i++){
+						categories[i] = scale(categories[i]);
+					}
+						drawDo(container, 10, 15, categories, names, colorScale, d.properties["Alpha-2"]);
+					}
+				else{
+					var cate = {};
+					var suc = {}
+					var categories = [];
+					var successful = [];
+					var names = [];
+
+					mydata.forEach(function(dataum){
+						if(dataum.country === d.properties["Alpha-2"]){
+							if(cate[dataum["main_category"]] === undefined){
+								cate[dataum["main_category"]] = 0;
+							}
+						}
+					})
+
+					mydata.forEach(function(dataum){
+						if(dataum.country === d.properties["Alpha-2"]){
+							cate[dataum["main_category"]]++;
+						}
+					})
+
+					mydata.forEach(function(dataum){
+						if(dataum.country === d.properties["Alpha-2"]){
+							if(suc[dataum["main_category"]] === undefined){
+								suc[dataum["main_category"]] = 0;
+							}
+						}
+					})
+
+					mydata.forEach(function(dataum){
+						if(dataum.country === d.properties["Alpha-2"] && dataum.state === "successful"){
+							suc[dataum["main_category"]]++;
+						}
+					})
+
+					Object.keys(cate).forEach(function(key){
+						categories.push(cate[key]);
+						successful.push(suc[key]);
+						names.push(key);
+					})
+
+					for(i = 0; i < successful.length; i++){
+						categories[i] = successful[i]/categories[i];
+					}
+
+					var scale = d3.scaleLinear()
+								  .domain([d3.min(categories), d3.max(categories)])
+								  .range([1,10]);
+
+					for(i = 0; i <categories.length; i++){
+						categories[i] = scale(categories[i]);
+					}
+					drawDo(container, 10, 15, categories, names, colorScale, d.properties["Alpha-2"]);
+				}
 }
 //add <div> for tooltip
 var newtt1 = document.createElement("div");
