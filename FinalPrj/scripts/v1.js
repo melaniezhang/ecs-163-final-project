@@ -187,7 +187,7 @@ function drawDo(container, n, m, list, names, colors, country){	//added ", count
 					// sankey shows up
 					updateGraph(this.className.baseVal, colors(this.className.baseVal), country);
 					// sunburst shows up
-					v4(this.className.baseVal.toLowerCase().replace(/ /gi, "_").replace(/&/gi, "and"), colors(this.className.baseVal));
+					v4(this.className.baseVal.toLowerCase().replace(/ /gi, "_").replace(/&/gi, "and"), colors(this.className.baseVal), country);
 					//change visibility to "visible" if <div> were "hidden"
 				  if (document.getElementById("v4").style.visibility === "hidden") {
 						document.getElementById("v3").style.visibility = "visible";
