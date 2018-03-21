@@ -117,7 +117,7 @@ function v1(mydata, container1){
 					document.getElementById("v4").style.visibility = "hidden";
 				}
 
-				drawDo(d3.select("#v2"), 10, 15, categories, names, colors, d.properties.name);	//added ", d.properties.name"
+				drawDo(d3.select("#v2"), 10, 15, categories, names, colors, d.properties["Alpha-2"]);	//added ", d.properties.name"
 			});
 	}
 }
@@ -185,7 +185,7 @@ function drawDo(container, n, m, list, names, colors, country){	//added ", count
 			.on("click", function(d){
 				if (this.classList !== []) {
 					// sankey shows up
-					updateGraph(this.className.baseVal, colors(this.className.baseVal));
+					updateGraph(this.className.baseVal, colors(this.className.baseVal), country);
 					// sunburst shows up
 					v4(this.className.baseVal.toLowerCase().replace(/ /gi, "_").replace(/&/gi, "and"), colors(this.className.baseVal));
 					//change visibility to "visible" if <div> were "hidden"
