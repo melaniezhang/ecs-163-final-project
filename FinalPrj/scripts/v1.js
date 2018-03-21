@@ -121,6 +121,12 @@ function v1(mydata, container1){
 				})
 
 			});
+
+			// add instructions
+			var newP = document.createElement("p");
+			var newNode = document.createTextNode("Choose any country in dark gray");
+			newP.appendChild(newNode);
+			document.getElementById("v1").appendChild(newP);
 	}
 }
 
@@ -240,7 +246,7 @@ function drawDo(container, n, m, list, names, colors, country){
 		.attr("font-style", "italic");
 }
 
-//update function for radar chart after filted by dropdowm manue
+//update function for radar chart after filted by dropdowm menu
 function update(d, mydata, colorScale, container){
 				if(d3.select(".options").property("value") === "a"){
 					var cate = {};
@@ -327,7 +333,7 @@ function update(d, mydata, colorScale, container){
 					for(i = 0; i <categories.length; i++){
 						categories[i] = scale(categories[i]);
 					}
-					drawDo(container, 10, 15, categories, names, colorScale, d.properties["Alpha-2"]);
+					drawDo(container, 10, 15, categories, names, colorScale, d.properties);
 				}
 }
 //add <div> for tooltip
