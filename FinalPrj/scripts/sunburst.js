@@ -52,6 +52,14 @@ function Sunburst(country, category, cat_color) {
         // Remove existing sunBurst
         svg.selectAll('*').remove();
 
+        // update color
+        for(i = 0; i < 6; i++) {
+            color_list[i] = shadeColor1(cat_color, (10 + (i * 10)));
+        }
+        myColors = d3.scaleOrdinal()
+            .domain(color_domain)
+            .range(color_list);
+
         // append group to svg
         var g = svg.append('g')
             .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
@@ -171,7 +179,7 @@ function Sunburst(country, category, cat_color) {
         svg.append("text")
             .attr("x", 585)
             .attr("y", 367)
-            .text("Successes");
+            .text("Failures");
 
         svg.append("rect")
             .attr("width", 30)
@@ -183,7 +191,7 @@ function Sunburst(country, category, cat_color) {
         svg.append("text")
             .attr("x", 585)
             .attr("y", 391)
-            .text("Failures");
+            .text("Successes");
     }
     this.update(country, category, cat_color);
 

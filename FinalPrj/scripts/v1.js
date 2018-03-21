@@ -44,9 +44,15 @@ function v1(mydata, container1){
 		if (mainCategories.includes(d.main_category))
 			mainCategories.push(d.main_category);
 	})
+	var colorArr = [];
+	for (i = 0; i < d3.schemeCategory20b.length; i++) {
+		if (i % 4 !== 3) {
+			colorArr.push(d3.schemeCategory20b[i]);
+		}
+	}
 	var colorScale = d3.scaleOrdinal()	//colorScale(main_category)->color
 			.domain(mainCategories)
-			.range(d3.schemeCategory20);
+			.range(colorArr);
 
 	//create dropdown manu
 	var menu = d3.select("#dropdown")
@@ -191,7 +197,7 @@ function drawDo(container, n, m, list, names, colors, country){
 					//change visibility to "visible" if <div> were "hidden"
 				  if (document.getElementById("v4").style.visibility === "hidden") {
 						document.getElementById("v3").style.visibility = "visible";
-				   	    document.getElementById("v4").style.visibility = "visible";
+				   	document.getElementById("v4").style.visibility = "visible";
 					}
 				}
 			});

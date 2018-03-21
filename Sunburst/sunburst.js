@@ -207,8 +207,3 @@ var sunburst = new Sunburst("US", "games", "#0033cc");
 function v4(main_category, color, country) {
     sunburst.update(country, window[main_category], color);
 }
-
-
-
-
-
