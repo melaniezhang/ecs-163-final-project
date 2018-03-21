@@ -13,9 +13,14 @@ header {
 header h1 {
   margin: 0 10px;
 }
+h4 {
+  color: black;
+  margin: 0 0 6px 20px;
+}
 
 /* grid */
 #v1 {
+  margin-top: 5px;
   position: relative;
   grid-row: 1 / 2;
   grid-column: 1 / 2;
@@ -26,6 +31,7 @@ header h1 {
   grid-column: 1 / 2;
 }
 #v3 {
+  margin-top: 5px;
   position: relative;
   grid-row: 1 / 2;
   grid-column: 2 / 3;
@@ -37,13 +43,12 @@ header h1 {
 }
 .vis {
   top: 49px;
-  margin-top: 5px;
 }
 
+/* v1 */
 #v1 .country[fill="grey"] {
   cursor: crosshair;
 }
-
 .tooltip {
   position: absolute;
   padding: 5px 3px;
@@ -56,6 +61,7 @@ header h1 {
   display: none;
 }
 
+/* v2 */
 #v2 path[class] {
   cursor: pointer;
 }
@@ -67,6 +73,9 @@ header h1 {
   font-family: Verdana, Geneva, sans-serif;
 }
 
+/* v3 */
+
+/* v4 */
 /* sunburstStylesheet.css
  * Author: Sarah Quick
  * ECS163 Final Project
@@ -98,18 +107,18 @@ body {
 
 }
 
-svg {
+#v4 svg {
     background-color: none;
 }
 
-svg2 {
+#v4 svg2 {
     background-color: blue;
 }
 
-path {
+#v4 path {
     stroke: lightgray;
 }
 
-#hoverText {
+#v4 #hoverText {
 
 }
