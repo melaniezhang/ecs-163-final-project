@@ -1,5 +1,5 @@
 function v1(mydata, container1){
-	//create svg 
+	//create svg
 	var svg1 = container1.append("svg")
 					   .attr("width", 700)
 					   .attr("height", 400);
@@ -20,7 +20,7 @@ function v1(mydata, container1){
 	var countryCount = [];
 	var countrycount = {};
 
-	mydata.sort(function(a, b) {return a.main_category.localeCompare(b.main_category);});	//added sorting by main_category
+	mydata.sort(function(a, b) {return a.main_category.localeCompare(b.main_category);});	//sorting by main_category
 
 	mydata.forEach(function(dataum){
 		if(countrycount[dataum.country] === undefined){
@@ -59,7 +59,7 @@ function v1(mydata, container1){
 
 	menu.append("option")
 		.attr("value", "p")
-		.text("Percentage of SUccessful Projects");
+		.text("Percentage of Successful Projects");
 
 	//drawing world map
 	function ready(error, data){
@@ -78,12 +78,12 @@ function v1(mydata, container1){
 			})
 			.attr("stroke", "black")
 			.attr("transform", "translate(-180,34)")
-			.on("mousemove",function(d){	//added
+			.on("mousemove",function(d){	//event for tooltip
 				d3.select("#tooltip1")
 						.style('left', (d3.event.pageX + 10) + 'px')
 						.style('top', (d3.event.pageY - 20) + 'px');
 			})
-			.on("mouseover", function(d){	//added
+			.on("mouseover", function(d){	//event for tooltip
 				if(countryKeys.includes(d.properties["Alpha-2"])){
 					d3.select("#tooltip1")
 							.style('display', 'block')
@@ -92,7 +92,7 @@ function v1(mydata, container1){
 							.html(d.properties.name);
 				}
 			})
-			.on("mouseleave",function(d){	//added
+			.on("mouseleave",function(d){	//event for tooltip
 				d3.select("#tooltip1")
 					.style('display', 'none');})
 			.on("click", function(d){
@@ -106,7 +106,8 @@ function v1(mydata, container1){
 				}
 
 				//draw a radar based on selected country at the beginning
-				update(d, mydata, colorScale, d3.select("#v2"));
+				if (this.getAttribute("fill") === "grey")	//update when a country in dataset is clicked
+					update(d, mydata, colorScale, d3.select("#v2"));
 
 				//update the radar chart based on dropdown selection
 				menu.on("change", function(){
@@ -118,7 +119,10 @@ function v1(mydata, container1){
 }
 
 //function to draw radar chart(drawing stacking donut)
-function drawDo(container, n, m, list, names, colors, country){	//added ", country"
+function drawDo(container, n, m, list, names, colors, country){
+	//change visibility to "visible" once any country in dataset is clicked
+	document.getElementById("v2").style.visibility = "visible";
+
 	container.selectAll("svg").remove();
 	var svg = container.append('svg')
 	 					.attr("width", 600)
@@ -148,8 +152,8 @@ function drawDo(container, n, m, list, names, colors, country){	//added ", count
 
 		arcs.append("path")
 			.attr("fill",function(d, i){
-				if(j <= list[i]){	//changed from "<" to "<="
-					return colors(names[i]);	//changed
+				if(j <= list[i]){
+					return colors(names[i]);
 				}
 				else{
 					return "white";
@@ -159,13 +163,13 @@ function drawDo(container, n, m, list, names, colors, country){	//added ", count
 				return arc(d);
 			})
 			.attr("stroke", "green")
-			.attr("class", function(d,i){return names[i];})	//added
-			.on("mousemove",function(d){	//added
+			.attr("class", function(d,i){return names[i];})
+			.on("mousemove",function(d){	//event for tooltip
         d3.select("#tooltip2")
             .style('left', (d3.event.pageX + 10) + 'px')
             .style('top', (d3.event.pageY - 20) + 'px');
 			})
-			.on("mouseover", function(d){	//added
+			.on("mouseover", function(d){	//event for tooltip
 				if (this.className.baseVal !== "") {
 					d3.select("#tooltip2")
 							.style('display', 'block')
@@ -174,16 +178,16 @@ function drawDo(container, n, m, list, names, colors, country){	//added ", count
 							.html(this.className.baseVal);
 				}
 			})
-			.on("mouseleave",function(d){	//added
+			.on("mouseleave",function(d){	//event for tooltip
 				d3.select("#tooltip2")
 					.style('display', 'none');
 			})
-			.on("click", function(d){
-				if (this.classList !== []) {
+			.on("click", function(d){	//draw detail visualization
+				if (this.classList.length !== 0) {
 					// sankey shows up
-					updateGraph(this.className.baseVal, colors(this.className.baseVal), country);
+					updateGraph(this.className.baseVal, colors(this.className.baseVal), country["Alpha-2"]);
 					// sunburst shows up
-					v4(this.className.baseVal.toLowerCase().replace(/ /gi, "_").replace(/&/gi, "and"), colors(this.className.baseVal));
+					v4(country["Alpha-2"], this.className.baseVal.toLowerCase(), colors(this.className.baseVal));
 					//change visibility to "visible" if <div> were "hidden"
 				  if (document.getElementById("v4").style.visibility === "hidden") {
 						document.getElementById("v3").style.visibility = "visible";
@@ -197,10 +201,9 @@ function drawDo(container, n, m, list, names, colors, country){	//added ", count
 		return;
 	}
 
-	//for(i = 0; i< m; i++){	//omit for loop
 	arcs.append("text")
 		.text(function(d,i){
-			if (i < names.length)	//added if statement
+			if (i < names.length)
 				return " : " +names[i];
 		})
 		.attr("x",200)
@@ -210,9 +213,9 @@ function drawDo(container, n, m, list, names, colors, country){	//added ", count
 
 	arcs.append("rect")
 		.attr("fill", function(d, i){
-			if (i < names.length)	//added if statement
-				return colors(names[i]);	//changed
-			else	//added else statement
+			if (i < names.length)
+				return colors(names[i]);
+			else
 				return "none";
 		})
 		.attr("height", 10)
@@ -221,10 +224,10 @@ function drawDo(container, n, m, list, names, colors, country){	//added ", count
 		.attr("y", function(d, i){
 			return 13*i - 90;
 		});
-	//}
+
 	//code added below
 	svg.append("text")
-		.text(country)
+		.text(country.name)
 		.attr("x", 30)
 		.attr("y", 20)
 		.attr("font-size", "18px")
@@ -264,7 +267,7 @@ function update(d, mydata, colorScale, container){
 					for(i = 0; i <categories.length; i++){
 						categories[i] = scale(categories[i]);
 					}
-						drawDo(container, 10, 15, categories, names, colorScale, d.properties["Alpha-2"]);
+						drawDo(container, 10, 15, categories, names, colorScale, d.properties);
 					}
 				else{
 					var cate = {};
